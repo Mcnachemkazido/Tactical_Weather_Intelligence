@@ -1,7 +1,5 @@
 import pandas as pd
-from only_tst import ingest_weather_for_location
 
-my_data = ingest_weather_for_location("london")
 
 def create_df(data):
     df = pd.DataFrame(data)
@@ -14,6 +12,3 @@ def data_analysis_columns(df):
     return df
 
 
-my_data = create_df(my_data)
-print(data_analysis_columns(my_data))
-print(my_data.info())
