@@ -77,5 +77,5 @@ SERVICE_B_URL = ("SERVICE_B_URL", "http://localhost:8081")
 def send_to_storage(data):
     endpoint = f"{SERVICE_B_URL}/clean"
     response = requests.post(endpoint, json=data.model_dump())
-    json_data = jsonable_encoder(data)
+    json_data = jsonable_encoder(response)
     return json_data
