@@ -1,0 +1,26 @@
+import requests
+from datetime import datetime
+
+def fetch_coordinates(location_name: str):
+    url = "https://geocoding-api.open-meteo.com/v1/search"
+    params = {
+        "name": location_name,
+        "count": 1
+    }
+
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    data = response.json()
+
+    if "results" not in data or not data["results"]:
+        raise ValueError(f"Location not found: {location_name}")
+
+    result = data["results"][0]
+    return {
+        "location_name": result["name"],
+        "country": result.get("country"),
+        "latitude": result["latitude"],
+        "longitude": result["longitude"]
+    }
+
+print(fetch_coordinates("Tel Aviv"))
