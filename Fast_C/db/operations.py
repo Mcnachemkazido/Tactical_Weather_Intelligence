@@ -1,4 +1,4 @@
-from connection import Connection
+from db.connection import Connection
 
 
 class Operations:
@@ -30,9 +30,4 @@ class Operations:
         sql = """SELECT * FROM weather_records"""
         cursor.execute(sql)
         result = cursor.fetchall()
-        for i in result:
-            print(i)
-
-
-o = Operations()
-print(o.select_all())
+        return result

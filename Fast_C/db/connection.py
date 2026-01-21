@@ -6,7 +6,9 @@ class Connection:
         self.conn = pymysql.connect(
             host="localhost",
             user="root",
-            password="menachem")
+            password="menachem" ,
+            database ="mydatabase"
+        )
 
 
     def crate_db(self):
