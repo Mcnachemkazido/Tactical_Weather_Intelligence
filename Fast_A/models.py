@@ -1,7 +1,7 @@
 from datetime import datetime
-from fastapi import APIRouter
-from fastapi.encoders import jsonable_encoder
 import requests
+
+
 
 def fetch_coordinates(location_name: str):
     url = "https://geocoding-api.open-meteo.com/v1/search"
@@ -39,8 +39,8 @@ def fetch_hourly_weather(latitude: float, longitude: float):
     response.raise_for_status()
     return response.json()["hourly"]
 
-router = APIRouter()
-@router.post("/ingest")
+
+
 def ingest_weather_for_location(location_name):
     records = []
 
@@ -72,10 +72,5 @@ def ingest_weather_for_location(location_name):
 
     return records
 
-SERVICE_B_URL = ("http://localhost:8081")
 
-def send_to_storage(data):
-    endpoint = f"{SERVICE_B_URL}/clean"
-    response = requests.post(endpoint, json=data.model_dump())
-    json_data = jsonable_encoder(response)
-    return json_data
+
