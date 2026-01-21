@@ -3,14 +3,11 @@ import pymysql
 
 class Connection:
     def __init__(self):
-        self.conn = None
+        self.conn = pymysql.connect(
+            host="localhost",
+            user="root",
+            password="menachem")
 
-    def get_connection(self):
-        if self.conn is None:
-            self.conn = pymysql.connect(
-                host="localhost",
-                user="root",
-                password="menachem")
 
     def crate_db(self):
         cursor = self.conn.cursor()
