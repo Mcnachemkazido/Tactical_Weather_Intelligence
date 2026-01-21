@@ -10,8 +10,6 @@ def clean_data(locations:list[Location]):
     locations_dict = [l.model_dump(mode='json') for l in locations]
     df = create_df(locations_dict)
     big_df = data_analysis_columns(df)
-    print(big_df.info())
     locations_json = big_df.to_dict('records')
-    print(type(locations_json[0]["timestamp"]))
-    return locations_json
+    return {"true":locations_json}
 

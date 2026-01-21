@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
 import requests
 import uvicorn
 from models import ingest_weather_for_location
-from schemas import Location
+
+
+
 
 SERVICE_B_URL = "http://localhost:8081"
 endpoint = f"{SERVICE_B_URL}/clean"
@@ -11,9 +14,11 @@ endpoint = f"{SERVICE_B_URL}/clean"
 app = FastAPI(title="Service A")
 
 @app.post("/ingest")
-def send_to_storage(location:Location):
-    data = ingest_weather_for_location(location.location)
-    requests.post(endpoint,json=data.model_dump())
+def send_to_storage(location:str):
+    data = ingest_weather_for_location(location)
+    json_data = jsonable_encoder(data)
+    res = requests.post(endpoint,json=json_data)
+    return res.json()
 
 
 
