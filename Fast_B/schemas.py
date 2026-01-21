@@ -1,11 +1,15 @@
 from pydantic import BaseModel
+from datetime import datetime
 
-class Weather(BaseModel):
-    timestamp:
-    location_name:
-    country:
-    latitude:
-    longitude:
-    temperature:
-    wind_speed:
-    humidity:
+class Location(BaseModel):
+    timestamp: datetime
+    location_name: str
+    country: str
+    latitude: float
+    longitude: float
+    temperature: float
+    wind_speed: float
+    humidity: int
+
+
+
