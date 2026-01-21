@@ -72,7 +72,7 @@ def ingest_weather_for_location(location_name):
 
     return records
 
-SERVICE_B_URL = ("SERVICE_B_URL", "http://localhost:8081")
+SERVICE_B_URL = ("http://localhost:8081")
 
 def send_to_storage(data):
     endpoint = f"{SERVICE_B_URL}/clean"
