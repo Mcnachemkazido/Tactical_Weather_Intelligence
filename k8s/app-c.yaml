@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-c
+  labels:
+    app: fastapi-c
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-c
+  template:
+    metadata:
+      labels:
+        app: fastapi-c
+    spec:
+      containers:
+      - name: fastapi-c
+        image: menachemkazido/fastapi-c
+        ports:
+        - containerPort: 8092
+        env:
+          - name: DB_HOST
+            value: "sql-0.service-sql"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-c
+spec:
+  selector:
+    app: fastapi-c
+  ports:
+    - protocol: TCP
+      port: 8092
+      targetPort: 8092
+

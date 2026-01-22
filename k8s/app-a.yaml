@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-a
+  labels:
+    app: fastapi-a
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-a
+  template:
+    metadata:
+      labels:
+        app: fastapi-a
+    spec:
+      containers:
+      - name: fastapi-a
+        image: menachemkazido/fastapi-a
+        ports:
+        - containerPort: 8090
+        env:
+          - name: SERVICE_B_HOST
+            value: service-b
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a
+spec:
+  selector:
+    app: fastapi-a
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+

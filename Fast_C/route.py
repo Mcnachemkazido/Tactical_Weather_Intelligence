@@ -1,19 +1,17 @@
 from fastapi import APIRouter
-from db.connection import Connection
 from db.operations import Operations
 from schemas import Location
 
 route = APIRouter()
+
+
 @route.post("/records")
-def crate_records(locations:list[Location]):
-    Connection().crate_db()
-    Connection().create_table()
+def create_records(locations: list[Location]):
     location_dict = [l.model_dump() for l in locations]
     Operations.insert_to_db(location_dict)
-    return {True:True}
+    return {"message": "Data inserted successfully", "count": len(locations)}
+
 
 @route.get("/get_all")
 def get_all():
-    return {True: Operations.select_all()}
-
-
+    return {"data": Operations.select_all()}

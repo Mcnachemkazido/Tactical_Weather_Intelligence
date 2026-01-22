@@ -1,0 +1,30 @@
+services:
+  web1:
+    build: ./Fast_A
+    ports:
+      - "8090:8090"
+    container_name: fast-a
+    environment:
+      SERVICE_B_HOST: web2
+
+  web2:
+    build: ./Fast_B
+    ports:
+      - "8091:8091"
+    container_name: fast-b
+    environment:
+      SERVICE_C_HOST: web3
+
+  web3:
+    build: ./Fast_C
+    ports:
+      - "8092:8092"
+    container_name: fast-c
+    environment:
+      DB_HOST: db
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: menachem
